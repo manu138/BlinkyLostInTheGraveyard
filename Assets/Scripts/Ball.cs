@@ -58,6 +58,10 @@ public class Ball : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D trigger)
     {
+        if(trigger.CompareTag("ultimo"))
+        {
+            SceneManager.LoadScene(0);
+        }
         int numero = scene.buildIndex + 1;
         if (trigger.CompareTag("Muerte"))
             SceneManager.LoadScene(scene.name);
