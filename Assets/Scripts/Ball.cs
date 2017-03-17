@@ -4,8 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class Ball : MonoBehaviour
 {
+    public AudioClip saw;
 
-   
 
     public Vector3 MousePosition;
     private Rigidbody2D rb;
@@ -16,11 +16,17 @@ public class Ball : MonoBehaviour
     void Awake()
     {
         scene = SceneManager.GetActiveScene();
-    
-        rb = GetComponent<Rigidbody2D>();
-       
-    counter = 0;
 
+        rb = GetComponent<Rigidbody2D>();
+
+        counter = 0;
+
+    
+    }
+    private void Start()
+    {
+        GetComponent<AudioSource>().playOnAwake = false;
+        GetComponent<AudioSource>().clip = saw;
     }
     private void Update()
     {
@@ -58,17 +64,19 @@ public class Ball : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D trigger)
     {
-        if(trigger.CompareTag("ultimo"))
+        GetComponent<AudioSource>().Play();
+
+        if (trigger.CompareTag("ultimo"))
         {
             SceneManager.LoadScene(0);
         }
         int numero = scene.buildIndex + 1;
         if (trigger.CompareTag("Muerte"))
             SceneManager.LoadScene(scene.name);
-      
-      else  if (trigger.CompareTag("Ganar"))
+
+        else if (trigger.CompareTag("Ganar"))
             SceneManager.LoadScene(numero);
-           
-        
+
+
     }
 }
